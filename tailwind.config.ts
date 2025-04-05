@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,8 +11,8 @@ export default {
     extend: {
       colors: {
         primary: {
-          100: "#FFF1E6",
-          500: "#FF7000",
+          "100": "#FFF1E6",
+          "500": "#FF7000",
         },
         dark: {
           "100": "#000000",
@@ -54,5 +55,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
