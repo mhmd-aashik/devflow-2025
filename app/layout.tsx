@@ -1,8 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SessionProvider } from "next-auth/react";
 import React from "react";
 
+import { auth } from "@/auth";
+import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/contexts/Theme";
 
 const inter = localFont({
@@ -24,25 +27,28 @@ export const metadata: Metadata = {
   icons: "/images/site-logo.svg",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await auth();
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} ${spaceGrotesk.variable}  antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <SessionProvider session={session}>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${inter.className} ${spaceGrotesk.variable}  antialiased`}
         >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          <Toaster />
+        </body>
+      </html>
+    </SessionProvider>
   );
-}
+};
+
+export default RootLayout;
