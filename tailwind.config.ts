@@ -53,6 +53,10 @@ export default {
         inter: ["var(--font-inter)"],
         space_grotesk: ["var(--font-space-grotesk)"],
       },
+      backgroundImage: {
+        "auth-dark": 'url("/images/auth-dark.png")',
+        "auth-light": 'url("/images/auth-light.png")',
+      },
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
